@@ -16,6 +16,49 @@ enum CameraLensDirection {
   external,
 }
 
+/// The camera's device type
+enum CameraDeviceType {
+  /// A built-in wide angle camera device.
+  /// These devices are suitable for general purpose use.
+  wideAngleCamera,
+
+  /// A built-in camera device with a longer focal length than a wide angle camera.
+  telephotoCamera,
+
+  /// A built-in camera device with a shorter focal length than a wide angle camera.
+  ultraWideCamera,
+
+  /// A device that consists of two fixed focal length cameras,
+  /// one wide and one telephoto.
+  dualCamera,
+
+  /// A device that consists of two fixed focal length cameras,
+  /// one ultra wide and one wide angle.
+  dualWideCamera,
+
+  /// A device that consists of three fixed focal length cameras,
+  /// one ultra wide, one wide angle, and one telephoto.
+  tripleCamera,
+
+  /// A device that consists of two cameras, one YUV and one Infrared.
+  /// The infrared camera provides high quality depth information
+  /// that is synchronized and perspective corrected to frames produced by the YUV camera.
+  /// While the resolution of the depth data and YUV frames may differ,
+  /// their field of view and aspect ratio always match.
+  trueDepthCamera,
+
+  /// A device that consists of two cameras, one YUV and one LiDAR.
+  /// The LiDAR camera provides high quality, high accuracy depth information by
+  /// measuring the round trip of an artificial light signal emitted by a laser.
+  /// The depth is synchronized and perspective corrected to frames produced by
+  /// the paired YUV camera. While the resolution of the depth data and YUV frames may differ,
+  /// their field of view and aspect ratio always match.
+  liDARDepthCamera,
+
+  /// An unknown device type.
+  unknown,
+}
+
 /// Properties of a camera device.
 @immutable
 class CameraDescription {
@@ -24,6 +67,7 @@ class CameraDescription {
     required this.name,
     required this.lensDirection,
     required this.sensorOrientation,
+    this.cameraType = CameraDeviceType.unknown,
   });
 
   /// The name of the camera device.
@@ -40,6 +84,10 @@ class CameraDescription {
   /// On Android, also defines the direction of rolling shutter readout, which
   /// is from top to bottom in the sensor's coordinate system.
   final int sensorOrientation;
+
+  /// Camera device type
+  /// Only iOS can get the device type for now
+  final CameraDeviceType cameraType;
 
   @override
   bool operator ==(Object other) =>

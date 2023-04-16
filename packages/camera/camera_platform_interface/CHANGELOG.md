@@ -1,3 +1,7 @@
+## 2.5.1
+
+* Add camera type to CameraDescription.
+
 ## 2.5.0
 
 * Adds NV21 as an image stream format (suitable for Android).
